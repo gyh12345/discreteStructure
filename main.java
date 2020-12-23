@@ -3,25 +3,43 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class main {
+/**
+ * This program is to calculate the prime factorization and to check whether user input is a prime number.
+ *
+ * @author Lee Tze Shung (262164), Ooi Gi Yuen (262543) & Lim Clarin (263087)
+ */
+public class Main {
     public static void main(String[] args) {
-                final JFrame m = new JFrame("Prime Number and Prime Factorization");
-                JLabel a = new JLabel("Input a number : ");
-                JLabel b = new JLabel("Choose an operation from below to perform : ");
-                JCheckBox checkBox1 = new JCheckBox("Check whether the number is a prime number.");
-                JCheckBox checkBox2 = new JCheckBox("Count prime factorization for the number.");
-                JButton count = new JButton("Count");
-                JTextField t1 = new JTextField(null);
-                JTextArea t2=new JTextArea();
-                a.setBounds(50, 20, 300, 60);
-                b.setBounds(50, 60, 300, 60);
-                checkBox1.setBounds(50, 100, 300, 60);
-                checkBox2.setBounds(50, 140, 300, 60);
-                count.setBounds(130, 220, 100, 40);
-                t1.setBounds(150,30, 200,40);
-                t2.setBounds(400,30, 550,500);
-                JScrollPane scroll = new JScrollPane(t2);
 
+        JFrame m = new JFrame("Prime Number and Prime Factorization");
+        JLabel a = new JLabel("Input a number : ");
+        JLabel b = new JLabel("Choose an operation from below to perform : ");
+        JCheckBox checkBox1 = new JCheckBox("Check whether the number is a prime number.");
+        JCheckBox checkBox2 = new JCheckBox("Count prime factorization for the number.");
+        JButton count = new JButton("Count");
+        JTextField t1 = new JTextField(null);
+        JTextArea t2=new JTextArea();
+        JScrollPane scroll = new JScrollPane(t2);
+
+        m.setSize(1000,600);
+        m.setVisible(true);
+        m.setResizable(false);
+        m.setLayout(null);
+        m.setLocationRelativeTo(null);
+        m.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        a.setBounds(50, 20, 300, 60);
+        b.setBounds(50, 60, 300, 60);
+        checkBox1.setBounds(50, 100, 300, 60);
+        checkBox2.setBounds(50, 140, 300, 60);
+        count.setBounds(130, 220, 100, 40);
+        t1.setBounds(150,30, 200,40);
+        //t2.setBounds(400,30, 100,100);
+        scroll.setBounds(400,30,550,500);
+
+        scroll.setVisible(true);
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        t2.setEditable(false);
 
         count.addActionListener(new ActionListener() {
             @Override
@@ -54,32 +72,31 @@ public class main {
                             JOptionPane.WARNING_MESSAGE);
                 }
             }
-
         });
+
         m.add(a);
         m.add(b);
         m.add(checkBox1);
         m.add(checkBox2);
         m.add(count);
         m.add(t1);
-        m.add(t2);
+        //m.add(t2);
         m.add(scroll);
 
-
-        m.setSize(1000, 600);
-        m.setResizable(false);
-        m.setLocationRelativeTo(null);
-        m.setVisible(true);
-        m.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * This method is to calculate whether user input is a prime number.
+     * @param n user input
+     * @return output string
+     */
     public static String calcPrimeNumber (int n) {
         boolean solved = false;
         boolean isPrime = false;
-        StringBuilder sb = new StringBuilder("Calculate if " + n + " is a prime number:\n" + "Performing Steps...\n\n");
+        StringBuilder sb = new StringBuilder(" Calculate if " + n + " is a prime number:\n" + " Performing Steps...\n\n");
 
         // Step 1
-        sb.append("Step 1: Check whether the number is 2.\n");
+        sb.append(" Step 1: Check whether the number is 2.\n");
         if (n == 2){ // if the number is 2
             sb.append("\tThe number is 2, therefore it is a prime number.");
             isPrime = true;
@@ -90,7 +107,7 @@ public class main {
 
         // Step 2
         if (!solved) { // if step 1 did not solve the number, then start step 2
-            sb.append("Step 2: Check whether " + n + " can be divided by 2.\n\t");
+            sb.append(" Step 2: Check whether " + n + " can be divided by 2.\n\t");
             if (n % 2 == 0) { // if the number can be divided by 2
                 sb.append(n + " can be divided by 2. (Remainder = 0)\n\t" + "Therefore, " + n + " is not a prime number.");
                 solved = true;
@@ -101,7 +118,7 @@ public class main {
 
         // Step 3
         if (!solved) { // if step 2 did not solve the number, then start step 3 following by step 4
-            sb.append("Step 3: Calculate the square root of " + n + ".\n\t");
+            sb.append(" Step 3: Calculate the square root of " + n + ".\n\t");
             double sqrtN = Math.sqrt(n); // count square root of the number
             sb.append("The square root of " + n + " is " + String.format("%.2f", sqrtN) +
                     "\n\t** REMINDER: Round off to the smaller number **" +
@@ -109,7 +126,7 @@ public class main {
             // Step 3 end
 
             // Step 4
-            sb.append("Step 4: Check whether " + n + " can be divided by any\n\t\todd number(D) between 3 and k, where k = " +
+            sb.append(" Step 4: Check whether " + n + " can be divided by any\n\t\todd number(D) between 3 and k, where k = " +
                     (int)Math.floor(sqrtN) + ".");
             ArrayList<Integer> oddBetweenSqrt = new ArrayList(); // to save the odd number(s) between 3 and k
             for (int i = 3; i <= sqrtN; i++){ // to detect and save odd number
@@ -143,9 +160,9 @@ public class main {
         }
 
         if (isPrime == true)
-            sb.append("\n\nANSWER: " + n + " IS A PRIME NUMBER.");
+            sb.append("\n\n ANSWER: " + n + " IS A PRIME NUMBER.");
         else
-            sb.append("\n\nANSWER: " + n + " IS NOT A PRIME NUMBER.");
+            sb.append("\n\n ANSWER: " + n + " IS NOT A PRIME NUMBER.");
 
         return sb.toString(); // return output answer
     }
@@ -156,14 +173,14 @@ public class main {
      * @return output String
      */
     public static String calcPrimeFactor (int n) {
-        StringBuilder sb = new StringBuilder("Finding the Prime Factorization of " + n + ":\n" + "Performing Steps...\n\n");
+        StringBuilder sb = new StringBuilder(" Finding the Prime Factorization of " + n + ":\n" + " Performing Steps...\n\n");
         ArrayList<Integer> primeNumbers = new ArrayList<>();
         ArrayList<Integer> answer = new ArrayList<>();
         boolean isPrime = false;
         int number = n;
         answer.add(n);
 
-        for (int i = 1; i <= 10000; i++) { // Count prime numbers between 2 - 100 and save to ArrayList
+        for (int i = 1; i <= 100; i++) { // Count prime numbers between 2 - 100 and save to ArrayList
             int counter = 0;
             for(int num = i; num >= 1; num--) {
                 if(i % num == 0) {
@@ -182,24 +199,24 @@ public class main {
         }
 
         if (isPrime == true) {
-            sb.append(n + " is a prime number.\nA prime number can only be divided by 1 or itself,\n" +
+            sb.append(" " + n + " is a prime number.\nA prime number can only be divided by 1 or itself,\n" +
                     "therefore it cannot be factorized further!");
         } else {
-            sb.append("Step 1: Divide "+ n +" by prime numbers until the remainder is a prime number.\n");
+            sb.append(" Step 1: Divide "+ n +" by prime numbers until the remainder is a prime number.\n");
             for (int i = 0; i < primeNumbers.size(); i++){
-                sb.append("\tAttempt to divide " + number + " by " + primeNumbers.get(i) + ":\n\t");
                 if (number % primeNumbers.get(i) == 0){
+                    sb.append("\tAttempt to divide " + number + " by " + primeNumbers.get(i) + ":\n\t");
                     sb.append(number + " / " + primeNumbers.get(i) + " = ");
                     answer.add(primeNumbers.get(i)); // add the prime number to answer list
                     number = number / primeNumbers.get(i); // number = number / prime number
                     sb.append(number + "\n\n");
 
-                    for (int x : primeNumbers){
-                        if (number == x) {
+                    for (int x = 0; x < primeNumbers.size(); x++){
+                        if (number == primeNumbers.get(x)) {
                             answer.add(number);
                             sb.append("\tThe Remainder "+ number +" is a Prime Number\n\tProceed to Step 2\n");
-                            sb.append("\nStep 2: Write the number as a product of prime numbers.");
-                            sb.append("\nANSWER: Prime Factorization of " + answer.get(0) + " = ");
+                            sb.append("\n Step 2: Write the number as a product of prime numbers.");
+                            sb.append("\n ANSWER: Prime Factorization of " + answer.get(0) + " = ");
                             for (int j = 1; j < answer.size(); j++) {
                                 for (int k = j + 1; j < answer.size(); k++) {
                                     if (k != answer.size()) {
@@ -218,7 +235,10 @@ public class main {
                             i = primeNumbers.size()-1;
                         }
                     }
+                } else if ((primeNumbers.get(i) > number) || (primeNumbers.get(i) == 97)) {
+                    i = -1;
                 } else {
+                    sb.append("\tAttempt to divide " + number + " by " + primeNumbers.get(i) + ":\n\t");
                     sb.append(number + " cannot be divided by " + primeNumbers.get(i) + "\n\n");
                 }
             }
